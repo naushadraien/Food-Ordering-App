@@ -2,6 +2,7 @@ import MenuPage from "@/app/menu/page";
 import Link from "next/link";
 import Sidebar from "./Sidebar";
 import CartIcon from "./CartIcon";
+import Image from "next/image";
 
 const Navbar = () => {
   const links = [
@@ -14,9 +15,9 @@ const Navbar = () => {
   const user = false;
 
   return (
-    <div className="h-12 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500">
+    <div className="h-12 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500 md:h-24 lg:px-20 xl:px-40">
       {/* Logo */}
-      <div className="text-xl">
+      <div className="text-xl md:font-bold flex-1">
         <Link href="/">BabaKaDhaba</Link>
       </div>
       <div className="hidden md:flex gap-4">
@@ -25,12 +26,18 @@ const Navbar = () => {
             {link.title}
           </Link>
         ))}
-        {!user ? (
-          <Link href="/login">Login</Link>
-        ) : (
-          <Link href="/orders">Orders</Link>
-        )}
-        <CartIcon />{" "}
+        <div className="hidden md:flex gap-4 justify-end items-center">
+          <div className="md:absolute top-3 right-2 lg:static flex items-center gap-2 cursor-pointer bg-orange-300 rounded-md px-1">
+            <Image src="/phone.png" alt="phone" width={20} height={20} />
+            <span>123 456 78</span>
+          </div>
+          {!user ? (
+            <Link href="/login">Login</Link>
+          ) : (
+            <Link href="/orders">Orders</Link>
+          )}
+          <CartIcon />{" "}
+        </div>
       </div>
       {/* MobileMenu */}
       <div className="md:hidden">

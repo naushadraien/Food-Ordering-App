@@ -1,10 +1,13 @@
-import Link from "next/link";
+import FeaturedItems from "@/components/FeaturedItems";
+import OfferTimer from "@/components/OfferTimer";
+import Slider from "@/components/Slider";
 
 export default function Home() {
   return (
-    <main className="text-center text-purple-700 font-bold">
-      Hello World
-      <Link href="/menu">Click Me</Link>
+    <main>
+      <Slider />
+      <FeaturedItems />
+      <OfferTimer />
     </main>
   );
 }
