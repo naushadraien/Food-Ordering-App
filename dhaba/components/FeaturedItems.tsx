@@ -1,7 +1,19 @@
+import { ProductType } from "@/types/type";
 import Image from "next/image";
-import { featuredProducts } from "@/data";
 
-const FeaturedItems = () => {
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/products", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Something went wrong");
+  }
+
+  return await res.json();
+};
+const FeaturedItems = async () => {
+  const featuredProducts: ProductType[] = await getData(); // here ProductType[] is used for multiple products and ProductType is used for single product
   return (
     <div className="w-screen overflow-x-scroll scroll-smooth text-red-500">
       {/* Wrapper */}

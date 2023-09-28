@@ -1,22 +1,43 @@
-import { pizzas } from "@/data";
+import { ProductType } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
 
-const Category = () => {
+type Props = {
+  params: {
+    category: string;
+  };
+};
+
+const getData = async (category: string) => {
+  const res = await fetch(
+    `http://localhost:3000/api/products?cat=${category}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Something went wrong");
+  }
+
+  return await res.json();
+};
+const Category = async ({ params }: Props) => {
+  const products: ProductType[] = await getData(params.category);
   return (
     <div className="flex flex-wrap text-red-500">
-      {pizzas.map((pizza) => (
+      {products.map((product) => (
         <Link
-          href={`/product/${pizza.id}`}
-          key={pizza.id}
+          href={`/product/${product.id}`}
+          key={product.id}
           className="w-full h-[60vh] p-4 border-r-2 border-b-2 border-red-500 group even:bg-fuchsia-50 sm:w-1/2 lg:w-1/3 flex flex-col justify-between"
         >
           {/* Image Container */}
-          {pizza.img && (
+          {product.img && (
             <div className="relative h-[80%]">
               <Image
-                src={pizza.img}
-                alt={pizza.title}
+                src={product.img}
+                alt={product.title}
                 fill
                 className="object-contain"
               />
@@ -24,8 +45,8 @@ const Category = () => {
           )}
           {/* Text Container */}
           <div className="flex justify-between items-center">
-            <h1 className="font-bold text-xl xl:text-2xl">{pizza.title}</h1>
-            <h2 className="group-hover:hidden text-xl">Rs. {pizza.price}</h2>
+            <h1 className="font-bold text-xl xl:text-2xl">{product.title}</h1>
+            <h2 className="group-hover:hidden text-xl">Rs. {product.price}</h2>
             <button className="hidden group-hover:block bg-red-500 text-white p-2 rounded-md">
               Add to cart
             </button>
