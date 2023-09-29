@@ -1,7 +1,10 @@
-import { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import Google from "next-auth/providers/google";
+import prisma from "./prisma_connect_for_api";
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     Google({
       clientId: process.env.GOOGLE_ID as string,
@@ -11,3 +14,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 };
+
+//we can use the useSession in the server component also but we have to use the getSession in the server component as given below
+export const getAuthSession = () => getServerSession(authOptions);
