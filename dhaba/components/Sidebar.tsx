@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CartIcon from "./CartIcon";
+import UserLinks from "./UserLinks";
 
 const Sidebar = () => {
   const links = [
@@ -17,7 +18,7 @@ const Sidebar = () => {
   };
 
   //Temporary User
-  const user = false;
+  // const user = false;
   return (
     <div onClick={handleOpen}>
       {!isOpen ? (
@@ -43,11 +44,7 @@ const Sidebar = () => {
               {link.title}
             </Link>
           ))}
-          {!user ? (
-            <Link href="/login">Login</Link>
-          ) : (
-            <Link href="/orders">Orders</Link>
-          )}
+          <UserLinks />
           <CartIcon />{" "}
         </div>
       )}

@@ -1,8 +1,8 @@
-import MenuPage from "@/app/menu/page";
-import Link from "next/link";
-import Sidebar from "./Sidebar";
-import CartIcon from "./CartIcon";
 import Image from "next/image";
+import Link from "next/link";
+import CartIcon from "./CartIcon";
+import Sidebar from "./Sidebar";
+import UserLinks from "./UserLinks";
 
 const Navbar = () => {
   const links = [
@@ -12,7 +12,7 @@ const Navbar = () => {
     { id: 4, title: "Contact Us", path: "/" },
   ];
 
-  const user = false;
+  // const user = false;
 
   return (
     <div className="h-12 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500 md:h-24 lg:px-20 xl:px-40">
@@ -31,11 +31,7 @@ const Navbar = () => {
             <Image src="/phone.png" alt="phone" width={20} height={20} />
             <span>123 456 78</span>
           </div>
-          {!user ? (
-            <Link href="/login">Login</Link>
-          ) : (
-            <Link href="/orders">Orders</Link>
-          )}
+          <UserLinks />
           <CartIcon />{" "}
         </div>
       </div>
