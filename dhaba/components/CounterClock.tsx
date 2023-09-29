@@ -8,7 +8,7 @@ const CounterClock = () => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-  const endingDate = new Date("2023-09-25");
+  const endingDate = new Date("2023-10-20");
   return (
     <>
       {isClient && (
