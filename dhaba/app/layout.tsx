@@ -5,6 +5,9 @@ import type { Metadata } from "next";
 import { Lora } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
+import { ReactQueryProvider } from "@/components/ReactQueryProvider";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const lora = Lora({
   weight: ["400", "500"],
@@ -26,10 +29,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={lora.className}>
         <AuthProvider>
-          <Notification />
-          <Navbar />
-          {children}
-          <Footer />
+          <ReactQueryProvider>
+            <Notification />
+            <Navbar />
+            {children}
+            <Footer />
+            <ToastContainer position="bottom-right" theme="dark" autoClose={3000} />
+          </ReactQueryProvider>
         </AuthProvider>
       </body>
     </html>
