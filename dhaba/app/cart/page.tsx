@@ -1,61 +1,41 @@
+"use client"
+import { useCartStore } from "@/utils/store";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const CartPage = () => {
+  const {products, totalItems, totalPrice,removeFromCart} = useCartStore();
+  // console.log(totalPrice);
+  
+  useEffect(() => { //this is used to rehydrate the cart when the page is refreshed and we use this wherever we use useCartStore
+    useCartStore.persist.rehydrate()
+  }, []);
+
   return (
     <div className="h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
       {/* Product Container */}
       <div className="h-2/3 p-4 lg:px-20 xl:p-40 flex flex-col justify-between overflow-scroll lg:h-full lg:w-2/3 2xl:w-1/2">
         {/* Single Item Container */}
-        <div className="flex items-center justify-between mb-4">
-          <Image
-            src="/temporary/p1.png"
-            alt="First-Product"
+       { products.map((product)=>(<div key={product.id} className="flex items-center justify-between mb-4">
+          {product.img && <Image
+            src={product.img}
+            alt={product.title}
             width={100}
             height={100}
-          />
+          />}
           <div>
-            <h1 className="text-xl font-bold">Sicilian</h1>
-            <span>Large</span>
+            <h1 className="text-xl font-bold">{product.title} x{product.quantity}</h1>
+            <span>{product.optionTitle}</span>
           </div>
-          <h2 className="font-bold">Rs. {"88.90"}</h2>
-          <span className="cursor-pointer">X</span>
-        </div>
-        {/* Single Item Container */}
-        <div className="flex items-center justify-between mb-4">
-          <Image
-            src="/temporary/p1.png"
-            alt="First-Product"
-            width={100}
-            height={100}
-          />
-          <div>
-            <h1 className="text-xl font-bold">Sicilian</h1>
-            <span>Large</span>
-          </div>
-          <h2 className="font-bold">Rs. {"88.90"}</h2>
-          <span className="cursor-pointer">X</span>
-        </div>
-        {/* Single Item Container */}
-        <div className="flex items-center justify-between mb-4">
-          <Image
-            src="/temporary/p1.png"
-            alt="First-Product"
-            width={100}
-            height={100}
-          />
-          <div>
-            <h1 className="text-xl font-bold">Sicilian</h1>
-            <span>Large</span>
-          </div>
-          <h2 className="font-bold">Rs. {"88.90"}</h2>
-          <span className="cursor-pointer">X</span>
-        </div>
+          <h2 className="font-bold">Rs. {product.price}</h2>
+          <span className="cursor-pointer" onClick={()=>removeFromCart(product)}>X</span>
+        </div>))}
       </div>
       {/* Payment Container */}
       <div className="h-1/2 p-4 lg:px-20 bg-fuchsia-50 flex flex-col gap-4 justify-center lg:h-full lg:w-1/3 2xl:w-1/2 2xl:text-xl 2xl:gap-6">
         <div className="flex justify-between">
-          <span>Subtotal{"(3 items)"}</span>
-          <span>Rs. 82.90</span>
+          <span>Subtotal ({totalItems} items)</span>
+          <span>Rs. {`${products.length ? totalPrice : 0}`}</span>
         </div>
         <div className="flex justify-between">
           <span>Service Cost</span>
@@ -68,7 +48,7 @@ const CartPage = () => {
         <hr className="my-2" />
         <div className="flex justify-between">
           <span>Total(Incl. VAT)</span>
-          <span className="font-bold">Rs. 82.90</span>
+          <span className="font-bold">Rs. {`${products.length ? totalPrice : 0}`}</span>
         </div>
         <button className="bg-red-500 text-white p-3 rounded-md w-1/2 self-end">
           CheckOut
