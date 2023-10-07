@@ -37,7 +37,7 @@ const PriceChanger = ({ product }: {product: ProductType}) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-bold text-2xl">Rs. {totalPrice.toFixed(2)}</h2>
+      <h2 className="font-bold text-2xl">Rs. {totalPrice}</h2>
       {/* Options Container */}
       <div className="flex gap-4">
         {product.options?.length && product.options?.map((option, index) => (

@@ -32,3 +32,30 @@ export const GET = async (req: NextRequest) => {
     );
   }
 };
+
+//order creation for the user payment for products
+export const POST = async (req: NextRequest) => {
+  const session = await getAuthSession();
+  if (session) {
+    try {
+      const body = await req.json();
+      if (session.user) {
+        const PaymentOrder = await prisma.order.create({
+          data: body,
+        }); //if the user is the admin then show all the orders
+        return new NextResponse(JSON.stringify(PaymentOrder), { status: 201 });
+      }
+    } catch (error) {
+      console.log(error);
+      return new NextResponse(
+        JSON.stringify({ message: "Something Went Wrong!" }),
+        { status: 500 }
+      );
+    }
+  } else {
+    return new NextResponse(
+      JSON.stringify({ message: "You are not authenticated!" }),
+      { status: 401 }
+    );
+  }
+};
