@@ -22,3 +22,20 @@ export const GET = async (req: NextRequest) => {
     );
   }
 };
+
+//posting products from frontend to database
+export const POST = async (req: NextRequest) => {
+  try {
+    const body = await req.json();
+    const products = await prisma.product.create({
+      data: body,
+    });
+    return new NextResponse(JSON.stringify(products), { status: 201 });
+  } catch (error) {
+    console.log(error);
+    return new NextResponse(
+      JSON.stringify({ message: "Something Went Wrong!" }),
+      { status: 500 }
+    );
+  }
+};
