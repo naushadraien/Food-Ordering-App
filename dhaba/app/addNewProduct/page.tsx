@@ -1,5 +1,6 @@
 "use client"
 import { useSession } from 'next-auth/react'
+import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
@@ -34,6 +35,7 @@ const AddNewProducts = () => {
 
     const [buttonOptionShow, setButtonOptionShow] = useState<Option[]>([])
     // console.log(options);
+    const [file, setFile] = useState<File>()
     
 
     const router = useRouter()
@@ -55,22 +57,45 @@ const AddNewProducts = () => {
       setOptions((prev)=>({...prev,[e.target.name]:value}))
     }
 
+    const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const target = e.target as HTMLInputElement
+      const item = (target.files as FileList)[0]
+      setFile(item)
+    }
+
+    const uploadImage = async () => {
+      const data  = new FormData();
+      data.append('file', file!);
+      data.append('upload_preset', 'babakadhaba'); //upload__preset is the folder name of cloudinary where we want to upload our image
+      const res = await fetch("https://api.cloudinary.com/v1_1/dh1pmip8y/image",{
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: data,
+      })
+      console.log(res);
+      
+      // const resData = await res.json();
+      // return resData.url;
+
+    }
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log("inputs"+ JSON.stringify({...inputs}), "options"+ JSON.stringify({options:buttonOptionShow}));
+        // console.log("inputs"+ JSON.stringify({...inputs}), "options"+ JSON.stringify({options:buttonOptionShow}));
         
        try {
+        const url = await uploadImage();
         const res = await fetch("http://localhost:3000/api/products", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
             body: JSON.stringify({
+              img: url,
               ...inputs,
               options:buttonOptionShow,
             }),
           })
-          console.log(res.body)
+          // console.log(res.body)
           
           const data = await res.json()
           // console.log(data)
@@ -91,7 +116,7 @@ const AddNewProducts = () => {
         <h1 className="text-4xl mb-2 text-gray-300 font-bold">
           Add New Product
         </h1>
-        {/* <div className="w-full flex flex-col gap-2 ">
+        <div className="w-full flex flex-col gap-2 ">
           <label
             className="text-sm cursor-pointer flex gap-4 items-center"
             htmlFor="file"
@@ -103,9 +128,9 @@ const AddNewProducts = () => {
             type="file"
             onChange={handleChangeImg}
             id="file"
-            className="hidden"
+            // className="hidden"
           />
-        </div> */}
+        </div>
         <div className="w-full flex flex-col gap-2 ">
           <label className="text-sm">Title</label>
           <input
