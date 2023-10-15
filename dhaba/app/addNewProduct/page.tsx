@@ -199,12 +199,12 @@ const AddNewProducts = () => {
               name="additionalPrice"
              onChange={handleOptions}
             />
-            <button
+            <div
               className="bg-gray-500 p-2 text-white"
               onClick={() => setButtonOptionShow((prev) => [...prev, options])}
             >
               Add Option
-            </button>
+            </div>
           </div>
           <div className="flex flex-wrap gap-4 mt-2">
             {buttonOptionShow.map((opt) => (
