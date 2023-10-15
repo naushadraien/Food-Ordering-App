@@ -65,19 +65,18 @@ const AddNewProducts = () => {
 
     const uploadImage = async () => {
       const data  = new FormData();
-      data.append('file', file!);
-      data.append('upload_preset', 'babakadhaba'); //upload__preset is the folder name of cloudinary where we want to upload our image
-      const res = await fetch("https://api.cloudinary.com/v1_1/dh1pmip8y/image",{
+      data.append("file", file!);
+      data.append("upload_preset", "babakadhaba"); //upload__preset is the folder name of cloudinary where we want to upload our image
+      const res = await fetch("https://api.cloudinary.com/v1_1/dh1pmip8y/image/upload",{
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         body: data,
       })
-      console.log(res);
+      // console.log(res);
       
-      // const resData = await res.json();
-      // return resData.url;
+      const resData = await res.json();
+      // console.log(resData.url);
+      
+      return resData.url;
 
     }
 
