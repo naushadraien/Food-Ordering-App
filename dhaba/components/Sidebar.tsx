@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import CartIcon from "./CartIcon";
 import UserLinks from "./UserLinks";
+import AddNewProduct from "./AddNewProduct";
 
 const Sidebar = () => {
   const links = [
@@ -44,6 +45,7 @@ const Sidebar = () => {
               {link.title}
             </Link>
           ))}
+          <AddNewProduct/>
           <UserLinks />
           <CartIcon />{" "}
         </div>

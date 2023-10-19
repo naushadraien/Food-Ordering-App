@@ -3,6 +3,7 @@ import Link from "next/link";
 import CartIcon from "./CartIcon";
 import Sidebar from "./Sidebar";
 import UserLinks from "./UserLinks";
+import AddNewProduct from "./AddNewProduct";
 
 const Navbar = () => {
   const links = [
@@ -31,6 +32,7 @@ const Navbar = () => {
             <Image src="/phone.png" alt="phone" width={20} height={20} />
             <span>123 456 78</span>
           </div>
+          <AddNewProduct/>
           <UserLinks />
           <CartIcon />{" "}
         </div>
