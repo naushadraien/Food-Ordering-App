@@ -1,6 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BsSearch } from "react-icons/bs";
+
+import { Input } from "@/components/ui/input";
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -22,13 +25,17 @@ const Notification = () => {
     router.push(`/search?q=${search}`);
   };
   return (
-    <div className="h-12 bg-red-500 text-white flex justify-center items-center px-4 text-center text-sm md:text-base cursor-pointer">
-      <form onSubmit={handleSearch} className="m-4">
-        <input
+    <div className="h-16 bg-red-500 text-white flex justify-center items-center px-4 text-center text-sm md:text-base cursor-pointer">
+      <form onSubmit={handleSearch} className="flex m-4">
+        <BsSearch
+          size={30}
+          className=" absolute mx-1 my-1 block text-gray-500"
+        />
+        <Input
           type="text"
-          name="search"
-          className="text-red-500 outline-none rounded-md border-none p-1"
+          placeholder="Search..."
           onChange={(e) => setSearch(e.target.value)}
+          className="text-gray-500 text-center focus-visible:ring-0 focus-visible:border-none"
         />
       </form>
       <DropdownMenu>
@@ -36,7 +43,7 @@ const Notification = () => {
           <Button
             variant="outline"
             size="icon"
-            className="bg-red-500 border-none"
+            className="text-gray-500 dark:text-gray-200 focus-visible:ring-0 focus-visible:border-none"
           >
             <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
