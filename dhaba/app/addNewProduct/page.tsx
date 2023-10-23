@@ -1,116 +1,137 @@
-"use client"
-import { useSession } from 'next-auth/react'
-import Image from 'next/image';
-import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
-import { toast } from 'react-toastify';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 type Inputs = {
-    title: string;
-    description: string;
-    price: number;
-    catSlug: string;
-  };
-  
-  type Option = {
-    title: string;
-    additionalPrice: number;
-  };
+  title: string;
+  description: string;
+  price: number;
+  catSlug: string;
+};
+
+type Option = {
+  title: string;
+  additionalPrice: number;
+};
 const AddNewProducts = () => {
-    const {data:session, status} = useSession()
-    const [inputs, setInputs] = useState<Inputs>({
-        title: "",
-        description: "",
-        price: 0,
-        catSlug: "pizzas",
-    })
+  const { data: session, status } = useSession();
+  const [inputs, setInputs] = useState<Inputs>({
+    title: "",
+    description: "",
+    price: 0,
+    catSlug: "pizzas",
+  });
 
-    // console.log(inputs);
-    
+  // console.log(inputs);
 
-    const [options, setOptions] = useState<Option>({
-        title: "small",
-        additionalPrice: 0,
-    })
+  const [options, setOptions] = useState<Option>({
+    title: "small",
+    additionalPrice: 0,
+  });
 
-    const [buttonOptionShow, setButtonOptionShow] = useState<Option[]>([])
-    // console.log(options);
-    const [file, setFile] = useState<File>()
-    
+  const [buttonOptionShow, setButtonOptionShow] = useState<Option[]>([]);
+  // console.log(options);
+  const [file, setFile] = useState<File>();
 
-    const router = useRouter()
-    if(status === 'loading'){
-        return <p>Loading...</p>
-    }
+  const router = useRouter();
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
 
-    if(status === 'unauthenticated' || !session?.user.isAdmin ){
-        router.push('/')
-    }
+  if (status === "unauthenticated" || !session?.user.isAdmin) {
+    router.push("/");
+  }
 
-    const handlechange=(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>{
-      const value = e.target.name === 'price' ? parseFloat(e.target.value) : e.target.value;
-      setInputs((prev)=>({...prev,[e.target.name]:value}))
-    }
+  const handlechange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const value =
+      e.target.name === "price" ? parseFloat(e.target.value) : e.target.value;
+    setInputs((prev) => ({ ...prev, [e.target.name]: value }));
+  };
 
-    const handleOptions=(e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)=>{ 
-      const value = e.target.name === 'additionalPrice' ? parseFloat(e.target.value) : e.target.value;
-      setOptions((prev)=>({...prev,[e.target.name]:value}))
-    }
+  const handleOptions = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const value =
+      e.target.name === "additionalPrice"
+        ? parseFloat(e.target.value)
+        : e.target.value;
+    setOptions((prev) => ({ ...prev, [e.target.name]: value }));
+  };
 
-    const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const target = e.target as HTMLInputElement
-      const item = (target.files as FileList)[0]
-      setFile(item)
-    }
+  const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const item = (target.files as FileList)[0];
+    setFile(item);
+  };
 
-    const uploadImage = async () => {
-      const data  = new FormData();
-      data.append("file", file!);
-      data.append("upload_preset", "babakadhaba"); //upload__preset is the folder name of cloudinary where we want to upload our image
-      const res = await fetch("https://api.cloudinary.com/v1_1/dh1pmip8y/image/upload",{
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", file!);
+    data.append("upload_preset", "babakadhaba"); //upload__preset is the folder name of cloudinary where we want to upload our image
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dh1pmip8y/image/upload",
+      {
         method: "POST",
         body: data,
-      })
-      // console.log(res);
-      
-      const resData = await res.json();
-      // console.log(resData.url);
-      
-      return resData.url;
+      }
+    );
+    // console.log(res);
 
-    }
+    const resData = await res.json();
+    // console.log(resData.url);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        // console.log("inputs"+ JSON.stringify({...inputs}), "options"+ JSON.stringify({options:buttonOptionShow}));
-        
-       try {
-        const url = await uploadImage();
-        const res = await fetch("http://localhost:3000/api/products", {
-            method: "POST",
-            body: JSON.stringify({
-              img: url,
-              ...inputs,
-              options:buttonOptionShow,
-            }),
-          })
-          // console.log(res.body)
-          
-          const data = await res.json()
-          // console.log(data)
-          // router.push(`/product/${data.id}`)
-          if(res.status === 201){
-            toast.success("Product Added Successfully");
-          }else{
-            toast.error(data.message);
-          }
-       } catch (error) {
-        console.log(error);
-       }
+    return resData.url;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // console.log("inputs"+ JSON.stringify({...inputs}), "options"+ JSON.stringify({options:buttonOptionShow}));
+
+    try {
+      const url = await uploadImage();
+      const res = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
+        body: JSON.stringify({
+          img: url,
+          ...inputs,
+          options: buttonOptionShow,
+        }),
+      });
+      // console.log(res.body)
+
+      const data = await res.json();
+      // console.log(data)
+      // router.push(`/product/${data.id}`)
+      if (res.status === 201) {
+        toast.success("Product Added Successfully");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
   return (
-<div className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center text-red-500 my-24">
+    <div className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center text-red-500 my-24">
       <form className="flex flex-wrap gap-6" onSubmit={handleSubmit}>
         <h1 className="text-4xl mb-2 text-gray-300 font-bold">
           Add New Product
@@ -123,16 +144,16 @@ const AddNewProducts = () => {
             <Image src="/upload.png" alt="" width={30} height={20} />
             <span>Upload Image</span>
           </label>
-          <input
+          <Input
+            id="picture"
             type="file"
             onChange={handleChangeImg}
-            id="file"
-            // className="hidden"
+            className="text-red-500 ring-1 ring-red-200"
           />
         </div>
         <div className="w-full flex flex-col gap-2 ">
           <label className="text-sm">Title</label>
-          <input
+          <Input
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
             type="text"
             placeholder="Bella Napoli"
@@ -142,7 +163,7 @@ const AddNewProducts = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <label className="text-sm">Description</label>
-          <textarea
+          <Textarea
             rows={3}
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
             placeholder="A timeless favorite with a twist, showcasing a thin crust topped with sweet tomatoes, fresh basil and creamy mozzarella."
@@ -152,7 +173,7 @@ const AddNewProducts = () => {
         </div>
         <div className="w-full flex flex-col gap-2 ">
           <label className="text-sm">Price</label>
-          <input
+          <Input
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
             type="number"
             placeholder="29"
@@ -163,11 +184,35 @@ const AddNewProducts = () => {
         <div className="w-1/4 flex flex-col gap-2">
           <label className="text-sm">Category</label>
 
-          <select name="catSlug" onChange={handlechange} value={inputs.catSlug} className='outline-none'>
-          <option value="pizzas">pizzas</option>
-          <option value="burgers">burgers</option>
-          <option value="pastas">pastas</option>
-        </select>
+          {/* <select
+            name="catSlug"
+            onChange={handlechange}
+            value={inputs.catSlug}
+            className="outline-none"
+          >
+            <option value="pizzas">pizzas</option>
+            <option value="burgers">burgers</option>
+            <option value="pastas">pastas</option>
+          </select> */}
+
+          <Select
+            name="catSlug"
+            // value={inputs.catSlug}
+            onValueChange={(value: string) =>
+              handlechange({
+                target: { name: "catSlug", value },
+              } as React.ChangeEvent<HTMLSelectElement>)
+            }
+          >
+            <SelectTrigger className="w-[180px] rounded-none">
+              <SelectValue placeholder="Select a category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="pizzas">pizzas</SelectItem>
+              <SelectItem value="burgers">burgers</SelectItem>
+              <SelectItem value="pastas">pastas</SelectItem>
+            </SelectContent>
+          </Select>
 
           {/* <input
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
@@ -179,12 +224,37 @@ const AddNewProducts = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <label className="text-sm">Options</label>
-          <div className="flex w-1/4">
-          <select name="title" onChange={handleOptions} value={options.title} className='outline-none'>
-          <option value="small">small</option>
-          <option value="medium">medium</option>
-          <option value="large">large</option>
-        </select>
+          <div className="flex w-full items-center">
+            {/* <select
+              name="title"
+              onChange={handleOptions}
+              value={options.title}
+              className="outline-none"
+            >
+              <option value="small">small</option>
+              <option value="medium">medium</option>
+              <option value="large">large</option>
+            </select> */}
+
+            <Select
+              name="title"
+              // value={options.title}
+              onValueChange={(value: string) =>
+                handleOptions({
+                  target: { name: "title", value },
+                } as React.ChangeEvent<HTMLSelectElement>)
+              }
+            >
+              <SelectTrigger className="w-[500px] rounded-none">
+                <SelectValue placeholder="Select an option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="small">small</SelectItem>
+                <SelectItem value="medium">medium</SelectItem>
+                <SelectItem value="large">large</SelectItem>
+              </SelectContent>
+            </Select>
+
             {/* <input
               className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
               type="text"
@@ -192,15 +262,15 @@ const AddNewProducts = () => {
               name="title"
              onChange={handleOptions}
             /> */}
-            <input
-              className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+            <Input
+              className=" ml-4 ring-1 ring-red-200 p-4 rounded-none placeholder:text-red-200 outline-none"
               type="number"
               placeholder="Additional Price"
               name="additionalPrice"
-             onChange={handleOptions}
+              onChange={handleOptions}
             />
             <div
-              className="bg-gray-500 p-2 text-white"
+              className="bg-gray-500 p-2 text-white w-full rounded-none cursor-pointer"
               onClick={() => setButtonOptionShow((prev) => [...prev, options])}
             >
               Add Option
@@ -223,14 +293,12 @@ const AddNewProducts = () => {
             ))}
           </div>
         </div>
-        <button
-          className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
-        >
+        <Button className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center">
           Submit
-        </button>
+        </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddNewProducts
+export default AddNewProducts;

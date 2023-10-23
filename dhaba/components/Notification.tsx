@@ -26,10 +26,10 @@ const Notification = () => {
   };
   return (
     <div className="h-16 bg-red-500 text-white flex justify-center items-center px-4 text-center text-sm md:text-base cursor-pointer">
-      <form onSubmit={handleSearch} className="flex m-4">
+      <form onSubmit={handleSearch} className="flex items-center m-4">
         <BsSearch
-          size={30}
-          className=" absolute mx-1 my-1 block text-gray-500"
+          size={20}
+          className=" absolute mx-1 block text-gray-500"
         />
         <Input
           type="text"
