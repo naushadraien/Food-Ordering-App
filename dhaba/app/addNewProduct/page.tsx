@@ -154,7 +154,7 @@ const AddNewProducts = () => {
         <div className="w-full flex flex-col gap-2 ">
           <label className="text-sm">Title</label>
           <Input
-            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
             type="text"
             placeholder="Bella Napoli"
             name="title"
@@ -165,7 +165,7 @@ const AddNewProducts = () => {
           <label className="text-sm">Description</label>
           <Textarea
             rows={3}
-            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
             placeholder="A timeless favorite with a twist, showcasing a thin crust topped with sweet tomatoes, fresh basil and creamy mozzarella."
             name="description"
             onChange={handlechange}
@@ -174,7 +174,7 @@ const AddNewProducts = () => {
         <div className="w-full flex flex-col gap-2 ">
           <label className="text-sm">Price</label>
           <Input
-            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
+            className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
             type="number"
             placeholder="29"
             name="price"
@@ -204,7 +204,7 @@ const AddNewProducts = () => {
               } as React.ChangeEvent<HTMLSelectElement>)
             }
           >
-            <SelectTrigger className="w-[180px] rounded-none">
+            <SelectTrigger className="w-[180px] rounded-none focus:ring-0 focus:border-none">
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
             <SelectContent>
@@ -245,7 +245,7 @@ const AddNewProducts = () => {
                 } as React.ChangeEvent<HTMLSelectElement>)
               }
             >
-              <SelectTrigger className="w-[500px] rounded-none">
+              <SelectTrigger className="w-[500px] rounded-none focus:ring-0 focus:border-none">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
@@ -263,14 +263,14 @@ const AddNewProducts = () => {
              onChange={handleOptions}
             /> */}
             <Input
-              className=" ml-4 ring-1 ring-red-200 p-4 rounded-none placeholder:text-red-200 outline-none"
+              className=" ml-4 ring-1 ring-red-200 p-4 rounded-none placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
               type="number"
               placeholder="Additional Price"
               name="additionalPrice"
               onChange={handleOptions}
             />
             <div
-              className="bg-gray-500 p-2 text-white w-full rounded-none cursor-pointer"
+              className="bg-red-500 p-[9px] text-white w-full rounded-none cursor-pointer"
               onClick={() => setButtonOptionShow((prev) => [...prev, options])}
             >
               Add Option
@@ -293,7 +293,9 @@ const AddNewProducts = () => {
             ))}
           </div>
         </div>
-        <Button className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center">
+        <Button
+          className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+        >
           Submit
         </Button>
       </form>
