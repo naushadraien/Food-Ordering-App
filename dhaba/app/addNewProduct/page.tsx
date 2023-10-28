@@ -27,6 +27,7 @@ type Option = {
   title: string;
   additionalPrice: number;
 };
+
 const AddNewProducts = () => {
   const { data: session, status } = useSession();
   const [inputs, setInputs] = useState<Inputs>({
@@ -35,6 +36,8 @@ const AddNewProducts = () => {
     price: 0,
     catSlug: "pizzas",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // console.log(inputs);
 
@@ -105,6 +108,7 @@ const AddNewProducts = () => {
     e.preventDefault();
     // console.log("inputs"+ JSON.stringify({...inputs}), "options"+ JSON.stringify({options:buttonOptionShow}));
 
+    setIsSubmitting(true);
     try {
       const url = await uploadImage();
       const res = await fetch("http://localhost:3000/api/products", {
@@ -121,6 +125,7 @@ const AddNewProducts = () => {
       // console.log(data)
       // router.push(`/product/${data.id}`)
       if (res.status === 201) {
+        setIsSubmitting(false);
         toast.success("Product Added Successfully");
       } else {
         toast.error(data.message);
@@ -131,9 +136,9 @@ const AddNewProducts = () => {
   };
 
   return (
-    <div className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center text-red-500 my-24">
+    <div className="p-4 lg:px-20 xl:px-40 h-full flex items-center justify-center text-red-500 my-4">
       <form className="flex flex-wrap gap-6" onSubmit={handleSubmit}>
-        <h1 className="text-4xl mb-2 text-gray-300 font-bold">
+        <h1 className="text-4xl mb-2 text-red-500 font-bold">
           Add New Product
         </h1>
         <div className="w-full flex flex-col gap-2 ">
@@ -149,6 +154,7 @@ const AddNewProducts = () => {
             type="file"
             onChange={handleChangeImg}
             className="text-red-500 ring-1 ring-red-200"
+            required
           />
         </div>
         <div className="w-full flex flex-col gap-2 ">
@@ -159,6 +165,7 @@ const AddNewProducts = () => {
             placeholder="Bella Napoli"
             name="title"
             onChange={handlechange}
+            required
           />
         </div>
         <div className="w-full flex flex-col gap-2">
@@ -169,6 +176,7 @@ const AddNewProducts = () => {
             placeholder="A timeless favorite with a twist, showcasing a thin crust topped with sweet tomatoes, fresh basil and creamy mozzarella."
             name="description"
             onChange={handlechange}
+            required
           />
         </div>
         <div className="w-full flex flex-col gap-2 ">
@@ -203,6 +211,7 @@ const AddNewProducts = () => {
                 target: { name: "catSlug", value },
               } as React.ChangeEvent<HTMLSelectElement>)
             }
+            required
           >
             <SelectTrigger className="w-[180px] rounded-none focus:ring-0 focus:border-none">
               <SelectValue placeholder="Select a category" />
@@ -244,6 +253,7 @@ const AddNewProducts = () => {
                   target: { name: "title", value },
                 } as React.ChangeEvent<HTMLSelectElement>)
               }
+              required
             >
               <SelectTrigger className="w-[500px] rounded-none focus:ring-0 focus:border-none">
                 <SelectValue placeholder="Select an option" />
@@ -268,6 +278,7 @@ const AddNewProducts = () => {
               placeholder="Additional Price"
               name="additionalPrice"
               onChange={handleOptions}
+              required
             />
             <div
               className="bg-red-500 p-[9px] text-white w-full rounded-none cursor-pointer"
@@ -294,6 +305,7 @@ const AddNewProducts = () => {
           </div>
         </div>
         <Button
+          disabled={isSubmitting}
           className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
         >
           Submit
