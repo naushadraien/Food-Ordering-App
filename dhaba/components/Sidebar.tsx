@@ -39,13 +39,13 @@ const Sidebar = () => {
         )}
       </div> */}
       {isOpen && (
-        <div className="bg-red-500 text-white absolute left-0 top-24 h-[calc(100vh-6rem)] flex justify-center items-center flex-col text-3xl gap-7 w-full z-10">
+        <div className="bg-red-500 text-white absolute left-0 top-[120px] h-[calc(100vh-6rem)] flex justify-center items-center flex-col text-3xl gap-7 w-full z-10">
           {links.map((link) => (
             <Link href={link.path} key={link.id}>
               {link.title}
             </Link>
           ))}
-          <AddNewProduct/>
+          <AddNewProduct />
           <UserLinks />
           <CartIcon />{" "}
         </div>

@@ -233,7 +233,7 @@ const AddNewProducts = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <label className="text-sm">Options</label>
-          <div className="flex w-full items-center">
+          <div className="flex w-1/2 md:w-full items-center flex-col md:flex-row">
             {/* <select
               name="title"
               onChange={handleOptions}
@@ -255,7 +255,7 @@ const AddNewProducts = () => {
               }
               required
             >
-              <SelectTrigger className="w-[500px] rounded-none focus:ring-0 focus:border-none">
+              <SelectTrigger className="md:w-[500px] rounded-none focus:ring-0 focus:border-none my-4 md:my-0">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
@@ -272,19 +272,23 @@ const AddNewProducts = () => {
               name="title"
              onChange={handleOptions}
             /> */}
-            <Input
-              className=" ml-4 ring-1 ring-red-200 p-4 rounded-none placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
-              type="number"
-              placeholder="Additional Price"
-              name="additionalPrice"
-              onChange={handleOptions}
-              required
-            />
-            <div
-              className="bg-red-500 p-[9px] text-white w-full rounded-none cursor-pointer"
-              onClick={() => setButtonOptionShow((prev) => [...prev, options])}
-            >
-              Add Option
+            <div className="flex w-full">
+              <Input
+                className="md:ml-4 ring-1 ring-red-200 p-4 rounded-none placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
+                type="number"
+                placeholder="Additional Price"
+                name="additionalPrice"
+                onChange={handleOptions}
+                required
+              />
+              <div
+                className="bg-red-500 flex justify-center items-center text-center p-[2px] md:p-[9px] max-sm:text-[11px] md:text-base text-white w-full rounded-none cursor-pointer"
+                onClick={() =>
+                  setButtonOptionShow((prev) => [...prev, options])
+                }
+              >
+                Add Option
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap gap-4 mt-2">

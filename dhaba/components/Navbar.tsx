@@ -16,7 +16,7 @@ const Navbar = () => {
   // const user = false;
 
   return (
-    <div className="h-12 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500 md:h-24 lg:px-20 xl:px-40">
+    <div className="h-14 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500 md:h-24 lg:px-20 xl:px-40">
       {/* Logo */}
       <div className="text-xl md:font-bold flex-1">
         <Link href="/">BabaKaDhaba</Link>
