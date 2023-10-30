@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -38,6 +39,7 @@ const AddNewProducts = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFeatured, setIsFeatured] = useState(false);
 
   // console.log(inputs);
 
@@ -67,6 +69,10 @@ const AddNewProducts = () => {
     const value =
       e.target.name === "price" ? parseFloat(e.target.value) : e.target.value;
     setInputs((prev) => ({ ...prev, [e.target.name]: value }));
+  };
+
+  const handleClick = (e) => {
+    setIsFeatured(e.target.checked);
   };
 
   const handleOptions = (
@@ -116,6 +122,7 @@ const AddNewProducts = () => {
         body: JSON.stringify({
           img: url,
           ...inputs,
+          isFeatured,
           options: buttonOptionShow,
         }),
       });
@@ -178,6 +185,15 @@ const AddNewProducts = () => {
             onChange={handlechange}
             required
           />
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            // onCheckedChange={handleClick}
+            checked={isFeatured}
+          />
+          <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Show on Homepage
+          </label>
         </div>
         <div className="w-full flex flex-col gap-2 ">
           <label className="text-sm">Price</label>
