@@ -80,7 +80,7 @@ export const CheckoutForm = ()=> {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={handleSubmit} className="flex justify-center items-center flex-col my-10">
       <LinkAuthenticationElement
         id="link-authentication-element"
       />

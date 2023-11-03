@@ -25,7 +25,7 @@ const Notification = () => {
     router.push(`/search?q=${search}`);
   };
   return (
-    <div className="h-16 bg-red-500 text-white flex justify-center items-center px-4 text-center text-sm md:text-base cursor-pointer">
+    <div className="h-16 bg-red-500 text-white flex justify-center items-center px-4 text-center text-sm md:text-base">
       <form onSubmit={handleSearch} className="flex items-center m-4">
         <BsSearch
           size={20}

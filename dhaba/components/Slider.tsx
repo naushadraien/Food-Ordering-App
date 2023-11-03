@@ -8,17 +8,17 @@ const Slider = () => {
   const data = [
     {
       id: 1,
-      title: "always fresh and always crispy & always hot",
-      image: "/slide1.png",
+      title: "Satisfy Your Cravings!",
+      image: "/slide1.jpg",
     },
     {
       id: 2,
-      title: "we deliver your order wherever you are in NY",
-      image: "/slide2.png",
+      title: "Delicious Delivered to Your Door.",
+      image: "/slide2.webp",
     },
     {
       id: 3,
-      title: "the best pizza to share with your family and friends",
+      title: "Taste the World, One Bite at a Time.",
       image: "/slide3.jpg",
     },
   ];

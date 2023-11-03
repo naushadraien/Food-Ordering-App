@@ -37,9 +37,11 @@ const Search = () => {
 
   return (
     <div>
-      <div className="m-4 text-center">Search Results For: {query}</div>
+      <div className="m-4 text-center">
+        Search Results For: <span className="text-red-500">{query}</span>
+      </div>
       <div className="flex justify-center items-center gap-4 flex-col sm:flex-row">
-        {filteredProducts.length > 0 &&
+        {filteredProducts.length > 0 ? (
           filteredProducts.map((product: ProductType) => (
             <div key={product.id}>
               <Link href={`/product/${product.id}`}>
@@ -51,7 +53,7 @@ const Search = () => {
                         alt={product.title}
                         width={200}
                         height={200}
-                        className="w-48 h-36 object-fill rounded-md mb-4"
+                        className="w-32 h-32 md:h-36 md:w-48 object-fill rounded-md mb-4"
                       />
                     )}
                     <CardTitle>{product.title}</CardTitle>
@@ -63,7 +65,12 @@ const Search = () => {
                 </Card>
               </Link>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="m-4 text-center font-bold text-red-500">
+            No Results Found!
+          </div>
+        )}
       </div>
     </div>
   );

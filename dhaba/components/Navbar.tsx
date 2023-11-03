@@ -32,7 +32,7 @@ const Navbar = () => {
             <Image src="/phone.png" alt="phone" width={20} height={20} />
             <span>123 456 78</span>
           </div>
-          <AddNewProduct/>
+          <AddNewProduct />
           <UserLinks />
           <CartIcon />{" "}
         </div>
