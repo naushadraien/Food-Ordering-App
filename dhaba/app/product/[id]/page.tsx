@@ -27,7 +27,7 @@ const SingleProduct = async({params}: {params : {id: string}}) => {
         <div className="relative w-full h-1/2 md:h-[70%]">
           <Image
             src={singleProduct.img}
-            alt=""
+            alt={singleProduct.title}
             className="object-contain"
             fill
           />

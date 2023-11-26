@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Slider = () => {
@@ -35,7 +36,7 @@ const Slider = () => {
 
       //another method for slider for minimize the code
       setCurrentSlider((prev) => (prev === data.length - 1 ? 0 : prev + 1));
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval); //this is for clear the interval
   }, [data.length]);
 
@@ -45,9 +46,11 @@ const Slider = () => {
         <h1 className="text-5xl text-center uppercase p-4 md:text-6xl xl:text-7xl">
           {data[currentSlider].title}
         </h1>
-        <button className="bg-red-500 text-white py-4 px-8 rounded-md">
-          Order Now!
-        </button>
+        <Link href="/menu">
+          <button className="bg-red-500 text-white py-4 px-8 rounded-md">
+            Order Now!
+          </button>
+        </Link>
       </div>
       <div className="w-full flex-1 relative">
         <Image

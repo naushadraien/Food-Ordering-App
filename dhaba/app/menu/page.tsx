@@ -25,7 +25,7 @@ const MenuPage = async () => {
           style={{ backgroundImage: `url(${category.img})` }}
           className="w-full h-1/3 bg-cover p-8 md:h-1/2"
         >
-          <div className={`text-${category.color} w-1/2`}>
+          <div className={`text-${category.color} dark:text-black w-1/2`}>
             <h1 className="uppercase font-bold text-3xl">{category.title}</h1>
             <p className="text-sm my-8">{category.description}</p>
             <button

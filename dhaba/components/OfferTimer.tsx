@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CounterClock from "./CounterClock";
+import Link from "next/link";
 
 const OfferTimer = () => {
   return (
@@ -7,16 +8,20 @@ const OfferTimer = () => {
       {/* Text container */}
       <div className="flex-1 flex items-center flex-col justify-center gap-8 text-center p-6">
         <h1 className="text-5xl font-bold text-white xl:text-6xl">
-          Delicious Burger & French Fry
+          <span className="text-red-500">Cheeseburger</span> with French Fry
         </h1>
         <p className="text-white xl:text-xl">
-          Progressively simplify effective e-toilers & process-centric methods
-          of empowerment. Quickly pontificate parallel.
+          For the ultimate indulgence, Cheeseburger with French Fry is a double
+          dose of delight. Two beef patties are sandwiched between slices of
+          crispy bacon, cheddar cheese, lettuce, tomatoes, and a special sauce,
+          all in a fluffy bun.
         </p>
         <CounterClock />
-        <button className="bg-red-500 text-white px-6 py-3 rounded-md">
-          Order Now!
-        </button>
+        <Link href="/menu">
+          <button className="bg-red-500 text-white px-6 py-3 rounded-md">
+            Order Now!
+          </button>
+        </Link>
       </div>
       {/* Image container */}
       <div className="relative flex-1 w-full md:h-full">
