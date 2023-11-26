@@ -16,10 +16,10 @@ const Navbar = () => {
   // const user = false;
 
   return (
-    <div className="h-14 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500 md:h-24 lg:px-20 xl:px-40">
+    <div className="h-14 text-red-500 flex justify-between items-center p-4 border-b-2 border-b-red-500 md:h-24 lg:px-10 xl:px-40">
       {/* Logo */}
       <div className="text-xl md:font-bold flex-1">
-        <Link href="/">BabaKaDhaba</Link>
+        <Link href="/">FeastFlix</Link>
       </div>
       <div className="hidden md:flex gap-4">
         {links.map((link) => (
@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="hidden md:flex gap-4 justify-end items-center">
           <div className="md:absolute top-3 right-2 lg:static flex items-center gap-2 cursor-pointer bg-orange-300 rounded-md px-1">
             <Image src="/phone.png" alt="phone" width={20} height={20} />
-            <span>123 456 78</span>
+            <span>971 456 78</span>
           </div>
           <AddNewProduct />
           <UserLinks />

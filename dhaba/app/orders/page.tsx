@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { OrderType } from "@/types/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -67,7 +68,7 @@ const Orders = () => {
             <tr
               className={`text-sm md:text-base ${
                 order.status !== "delivered" ? "bg-red-50" : "bg-green-50"
-              }`}
+              } dark:text-gray-100 dark:bg-gray-800`}
               key={order.id}
             >
               <td className="hidden md:block py-6 px-1">{order.id}</td>
@@ -89,14 +90,14 @@ const Orders = () => {
                       placeholder={order.status}
                       className="p-2 ring-1 ring-red-100 rounded-md"
                     />
-                    <button className="bg-red-400 p-2 rounded-full">
+                    <Button className="bg-red-400 p-2 rounded-full">
                       <Image
                         src="/edit.png"
                         alt="edit"
                         width={20}
                         height={20}
                       />
-                    </button>
+                    </Button>
                   </form>
                 </td>
               ) : (

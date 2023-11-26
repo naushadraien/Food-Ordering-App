@@ -169,7 +169,6 @@ const AddNewProducts = () => {
           <Input
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
             type="text"
-            placeholder="Bella Napoli"
             name="title"
             onChange={handlechange}
             required
@@ -180,7 +179,6 @@ const AddNewProducts = () => {
           <Textarea
             rows={3}
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
-            placeholder="A timeless favorite with a twist, showcasing a thin crust topped with sweet tomatoes, fresh basil and creamy mozzarella."
             name="description"
             onChange={handlechange}
             required
@@ -200,7 +198,6 @@ const AddNewProducts = () => {
           <Input
             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 focus-visible:ring-0 focus-visible:border-none"
             type="number"
-            placeholder="29"
             name="price"
             onChange={handlechange}
           />
