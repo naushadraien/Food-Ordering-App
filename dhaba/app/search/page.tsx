@@ -21,7 +21,7 @@ const Search = () => {
   const { isLoading, data } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
-      return await fetch("http://localhost:3000/api/product", {
+      return await fetch("/api/product", {
         cache: "no-store",
       }).then((res) => res.json());
     },

@@ -31,6 +31,7 @@ export async function POST(
       },
       data: { intent_id: paymentIntent.id },
     });
+    console.log(paymentIntent.id);
 
     return new NextResponse(
       JSON.stringify({ clientSecret: paymentIntent.client_secret }),

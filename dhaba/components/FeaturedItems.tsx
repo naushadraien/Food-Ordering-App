@@ -2,7 +2,7 @@ import { ProductType } from "@/types/type";
 import Image from "next/image";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/products", {
+  const res = await fetch(`${process.env.Next_PUBLIC_URL}/api/products`, {
     cache: "no-store",
   });
 

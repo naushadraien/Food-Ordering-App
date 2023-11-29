@@ -4,12 +4,9 @@ import { ProductType } from "@/types/type";
 import Image from "next/image";
 
 const getData = async (id: string) => {
-  const res = await fetch(
-    `http://localhost:3000/api/products/${id}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`${process.env.Next_PUBLIC_URL}/api/products/${id}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error("Something went wrong");
@@ -17,9 +14,9 @@ const getData = async (id: string) => {
 
   return await res.json();
 };
-const SingleProduct = async({params}: {params : {id: string}}) => {
+const SingleProduct = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
-  const singleProduct : ProductType = await getData(id);
+  const singleProduct: ProductType = await getData(id);
   return (
     <div className="p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-around text-red-500 md:flex-row md:gap-8  md:items-center relative">
       {/* Image Container */}
@@ -35,13 +32,13 @@ const SingleProduct = async({params}: {params : {id: string}}) => {
       )}
       {/* Text Container */}
       <div className=" h-1/2 flex flex-col gap-1 md:h-[70%] md:justify-center md:gap-6 xl:gap-8">
-        <h1 className="font-bold text-3xl xl:text-4xl">{singleProduct.title}</h1>
+        <h1 className="font-bold text-3xl xl:text-4xl">
+          {singleProduct.title}
+        </h1>
         <p>{singleProduct.description}</p>
-        <PriceChanger
-          product={singleProduct}
-        />
+        <PriceChanger product={singleProduct} />
       </div>
-      <DeleteBtn id={singleProduct.id}/>
+      <DeleteBtn id={singleProduct.id} />
     </div>
   );
 };

@@ -1,14 +1,14 @@
-"use client"
+"use client";
 import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import AddressForm from "./AddressForm";
 
-export const CheckoutForm = ()=> {
+export const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -61,7 +61,7 @@ export const CheckoutForm = ()=> {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/successPayment",
+        return_url: `http://localhost:3000/successPayment`,
       },
     });
 
@@ -80,12 +80,14 @@ export const CheckoutForm = ()=> {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit} className="flex justify-center items-center flex-col my-10">
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-      />
-      <PaymentElement id="payment-element" options={{layout: "tabs"}} />
-      <AddressForm/>
+    <form
+      id="payment-form"
+      onSubmit={handleSubmit}
+      className="flex justify-center items-center flex-col my-10"
+    >
+      <LinkAuthenticationElement id="link-authentication-element" />
+      <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
+      <AddressForm />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
@@ -95,4 +97,4 @@ export const CheckoutForm = ()=> {
       {message && <div id="payment-message">{message}</div>}
     </form>
   );
-}
+};
