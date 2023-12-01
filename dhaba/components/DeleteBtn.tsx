@@ -4,12 +4,14 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Button } from "./ui/button";
+import { Loading } from "./Loading";
 
 const DeleteBtn = ({ id }: { id: string }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === "loading") return <p>Loading...</p>;
+  if (status === "loading") return <Loading />;
   if (status === "unauthenticated" || !session?.user.isAdmin) return;
 
   const handleDelete = async () => {
@@ -29,12 +31,12 @@ const DeleteBtn = ({ id }: { id: string }) => {
   };
 
   return (
-    <button
+    <Button
       className="bg-red-400 p-2 rounded-full absolute top-4 right-4"
       onClick={handleDelete}
     >
       <Image src="/delete.png" alt="delete" width={20} height={20} />
-    </button>
+    </Button>
   );
 };
 

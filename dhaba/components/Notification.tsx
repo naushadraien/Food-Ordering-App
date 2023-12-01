@@ -29,13 +29,13 @@ const Notification = () => {
       <form onSubmit={handleSearch} className="flex items-center m-4">
         <BsSearch
           size={20}
-          className=" absolute mx-1 block text-gray-500"
+          className=" absolute mx-1 block text-gray-500 dark:text-gray-200"
         />
         <Input
           type="text"
           placeholder="Search..."
           onChange={(e) => setSearch(e.target.value)}
-          className="text-gray-500 text-center focus-visible:ring-0 focus-visible:border-none"
+          className="text-gray-500 dark:text-gray-200 text-center focus-visible:ring-0 focus-visible:border-none dark:placeholder:text-gray-200"
         />
       </form>
       <DropdownMenu>

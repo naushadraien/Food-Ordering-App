@@ -16,6 +16,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { Loading } from "@/components/Loading";
 
 type Inputs = {
   title: string;
@@ -54,7 +55,7 @@ const AddNewProducts = () => {
 
   const router = useRouter();
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (status === "unauthenticated" || !session?.user.isAdmin) {

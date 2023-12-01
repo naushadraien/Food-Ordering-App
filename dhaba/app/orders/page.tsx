@@ -1,4 +1,5 @@
 "use client";
+import { Loading } from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -57,7 +58,7 @@ const Orders = () => {
     toast.success("Order Status Updated Successfully");
   };
 
-  if (isLoading || status === "loading") return "Loading...";
+  if (isLoading || status === "loading") return <Loading />;
 
   return (
     <div className="p-4 lg:px-20 xl:px-40">

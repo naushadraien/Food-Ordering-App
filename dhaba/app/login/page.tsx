@@ -1,4 +1,5 @@
 "use client";
+import { Loading } from "@/components/Loading";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +12,7 @@ const Login = () => {
   // console.log("status:" +status);
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Loading/>;
   } else if (status === "authenticated") {
     router.push("/");
   }

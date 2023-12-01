@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { Loading } from "@/components/Loading";
 
 const Search = () => {
   const searchParams = useSearchParams();
@@ -29,7 +30,7 @@ const Search = () => {
 
   // console.log(data);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   // Filter the products based on the search criteria
   const filteredProducts = data.filter((product: ProductType) => {
     return product.title.toLowerCase().includes(query!.toLowerCase());

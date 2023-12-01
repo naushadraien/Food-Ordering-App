@@ -20,7 +20,7 @@ const SuccessPage = ({ params }: { params: { orderId: string } }) => {
         // console.log(payment_intent);
         setTimeout(() => {
           router.push("/orders");
-        }, 5000);
+        }, 2000);
       } catch (err) {
         console.log(err);
       }
