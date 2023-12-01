@@ -1,5 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { OrderType } from "@/types/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -15,8 +22,7 @@ const Orders = () => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
-    queryFn: () =>
-      fetch("/api/orders").then((res) => res.json()),
+    queryFn: () => fetch("/api/orders").then((res) => res.json()),
   });
 
   // console.log("data", data);
@@ -42,8 +48,10 @@ const Orders = () => {
   const handleUpdate = (e: React.FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const input = form.elements[0] as HTMLInputElement;
-    const status = input.value; //directly accessing the value of input without using state
+    // const input = form.elements[0] as HTMLInputElement;
+    // const status = input.value; //directly accessing the value of input without using state
+    const select = form.elements[1] as HTMLSelectElement;
+    const status = select.value;
     mutation.mutate({ id, status }); //here we are passing the id and status to the mutation function which is defined above and then we are using the mutation function to mutate the data
     form.reset();
     toast.success("Order Status Updated Successfully");
@@ -77,7 +85,11 @@ const Orders = () => {
               </td>
               <td className="py-6 px-1">{order.price}</td>
               <td className="hidden md:block py-6 px-1">
-                {order.products[0].title}
+                {order.products.map((product) => (
+                  <div key={product.id}>
+                    <span>{product.title}</span>
+                  </div>
+                ))}
               </td>
               {session?.user.isAdmin ? (
                 <td>
@@ -85,11 +97,23 @@ const Orders = () => {
                     className="flex justify-center items-center gap-4"
                     onSubmit={(e) => handleUpdate(e, order.id)}
                   >
-                    <input
+                    <Select>
+                      <SelectTrigger className="md:w-[500px] focus:ring-0 focus:border-none my-4 md:my-0">
+                        <SelectValue placeholder={order.status} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Being Prepared!">
+                          Being Prepared!
+                        </SelectItem>
+                        <SelectItem value="On the Way!">On the Way!</SelectItem>
+                        <SelectItem value="Delivered!">Delivered!</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {/* <input
                       type="text"
                       placeholder={order.status}
                       className="p-2 ring-1 ring-red-100 rounded-md"
-                    />
+                    /> */}
                     <Button className="bg-red-400 p-2 rounded-full">
                       <Image
                         src="/edit.png"

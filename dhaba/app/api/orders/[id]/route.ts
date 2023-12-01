@@ -16,7 +16,7 @@ export const PUT = async (
         status: body,
       },
     });
-    console.log(body);
+    // console.log(body);
 
     return new NextResponse(
       JSON.stringify({ message: "Order has been updated!" }),

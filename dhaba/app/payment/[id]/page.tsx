@@ -16,15 +16,12 @@ const Payment = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/create-payment-intent/${id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await fetch(`/api/create-payment-intent/${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
         // console.log(data.clientSecret);
         setClientSecret(data.clientSecret);
@@ -46,7 +43,7 @@ const Payment = ({ params }: { params: { id: string } }) => {
     <div>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm Orderid={id} />
         </Elements>
       )}
     </div>

@@ -1,13 +1,18 @@
 import prisma from "@/utils/prisma_connect_for_api";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export const PUT = async ({ params }: { params: { intentId: string } }) => {
-  const { intentId } = params;
+export const PUT = async (
+  req: NextRequest,
+  { params }: { params: { OrderId: string } }
+) => {
+  const { OrderId } = params;
+
+  console.log("OrderId from confirm-payment-intent", OrderId);
 
   try {
     await prisma.order.update({
       where: {
-        intent_id: intentId,
+        id: OrderId,
       },
       data: { status: "Being prepared!" },
     });

@@ -7,8 +7,9 @@ import {
 } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import AddressForm from "./AddressForm";
+import { Button } from "./ui/button";
 
-export const CheckoutForm = () => {
+export const CheckoutForm = ({ Orderid }: { Orderid: String }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -61,7 +62,7 @@ export const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/successPayment`,
+        return_url: `http://localhost:3000/successPayment/${Orderid}`,
       },
     });
 
@@ -90,7 +91,13 @@ export const CheckoutForm = () => {
       <AddressForm />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div className="spinner" id="spinner"></div>
+          ) : (
+            <Button className="bg-orange-500 hover:bg-orange-600 text-lg text-white my-4">
+              Pay Now
+            </Button>
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}
