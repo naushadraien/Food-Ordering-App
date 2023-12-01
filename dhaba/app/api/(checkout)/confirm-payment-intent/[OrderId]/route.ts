@@ -7,7 +7,7 @@ export const PUT = async (
 ) => {
   const { OrderId } = params;
 
-  console.log("OrderId from confirm-payment-intent", OrderId);
+  // console.log("OrderId from confirm-payment-intent", OrderId);
 
   try {
     await prisma.order.update({

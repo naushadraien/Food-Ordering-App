@@ -12,7 +12,6 @@ import { Button } from "./ui/button";
 export const CheckoutForm = ({ Orderid }: { Orderid: String }) => {
   const stripe = useStripe();
   const elements = useElements();
-
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
