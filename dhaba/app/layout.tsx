@@ -17,8 +17,8 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Baba Ka Dhaba",
-  description: "This is a baba ka dhaba Restaurant website",
+  title: "FeastFlix",
+  description: "This is a FeastFlix Restaurant website",
 };
 
 export default function RootLayout({

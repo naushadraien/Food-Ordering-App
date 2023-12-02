@@ -83,7 +83,7 @@ export const CheckoutForm = ({ Orderid }: { Orderid: String }) => {
     <form
       id="payment-form"
       onSubmit={handleSubmit}
-      className="flex justify-center items-center flex-col my-10"
+      className="flex justify-center items-center flex-col my-10 space-y-4"
     >
       <LinkAuthenticationElement id="link-authentication-element" />
       <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
