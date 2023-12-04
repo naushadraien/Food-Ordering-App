@@ -9,24 +9,28 @@ type Props = {
 };
 
 const getData = async (category: string) => {
-  const res = await fetch(
-    `${process.env.Next_PUBLIC_URL}/api/products?cat=${category}`,
-    {
-      cache: "no-store",
+  try {
+    const res = await fetch(
+      `${process.env.Next_PUBLIC_URL && process.env.Next_PUBLIC_URL}/api/products?cat=${category}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Something went wrong");
     }
-  );
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
+    return await res.json();
+  } catch (error) {
+    console.log(error);
   }
-
-  return await res.json();
 };
 const Category = async ({ params }: Props) => {
   const products: ProductType[] = await getData(params.category);
   return (
     <div className="flex flex-wrap text-red-500">
-      {products.map((product) => (
+      {products && products.map((product) => (
         <Link
           href={`/product/${product.id}`}
           key={product.id}

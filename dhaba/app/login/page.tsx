@@ -12,7 +12,7 @@ const Login = () => {
   // console.log("status:" +status);
 
   if (status === "loading") {
-    return <Loading/>;
+    return <Loading />;
   } else if (status === "authenticated") {
     router.push("/");
   }
@@ -24,14 +24,14 @@ const Login = () => {
         {/* Image Container */}
         <div className="relative h-1/3 w-full md:h-full md:w-1/2">
           <Image
-            src="/loginBg.png"
+            src="/login-bg.jpg"
             alt="login-background"
             className="object-cover"
             fill
           />
         </div>
         {/* Form Container */}
-        <div className="p-10 flex flex-col gap-8 md:gap-6 md:w-1/2">
+        <div className="p-10 flex flex-col gap-8 -mt-6 md:gap-4 md:w-1/2">
           <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
           <p>
             Login into your account or create a new one using social buttons
@@ -50,7 +50,10 @@ const Login = () => {
             />
             <span>Sign in with Google</span>
           </button>
-          <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md">
+          {/* <button
+            className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md"
+            onClick={() => signIn("facebook")}
+          >
             <Image
               src="/facebook.png"
               alt="facebook"
@@ -60,8 +63,8 @@ const Login = () => {
             />
             <span>Sign in with Facebook</span>
           </button>
-          <button>Sign in with facebook</button>
-          <p className="text-sm">
+          <button>Sign in with facebook</button> */}
+          <p className="text-sm text-center text-red-500">
             Have a problem?
             <Link href="/" className="underline">
               Contact Us
