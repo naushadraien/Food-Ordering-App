@@ -37,30 +37,33 @@ const Search = () => {
   });
 
   return (
-    <div>
-      <div className="m-4 text-center">
+    <div className="px-2">
+      <div className="mt-3 text-center">
         Search Results For: <span className="text-red-500">{query}</span>
       </div>
-      <div className="flex justify-center items-center gap-4 flex-col sm:flex-row">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-8 gap-4 mt-28">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product: ProductType) => (
-            <div key={product.id}>
+            <div key={product.id} className="text-center mb-10">
               <Link href={`/product/${product.id}`}>
-                <Card className="m-4">
-                  <CardHeader>
+                <Card className="mb-10 w-full flex justify-center items-center flex-col h-72 relative bg-orange-500 hover:scale-105 ease-in transition-all delay-75">
+                  <CardHeader className="flex items-center">
                     {product.img && (
                       <Image
                         src={product.img}
                         alt={product.title}
-                        width={200}
-                        height={200}
-                        className="w-32 h-32 md:h-36 md:w-48 object-fill rounded-md mb-4"
+                        width={400}
+                        height={400}
+                        className="h-36 w-48 object-cover rounded-md absolute -mt-24"
                       />
                     )}
-                    <CardTitle>{product.title}</CardTitle>
-                    <CardDescription>{product.description}</CardDescription>
+                    <CardTitle className="pt-16">{product.title}</CardTitle>
+                    <CardDescription className="pt-2 text-gray-700">
+                      {product.description?.slice(0, 50)}
+                      {"..."}
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="font-bold">
                     <p>Rs. {product.price}</p>
                   </CardContent>
                 </Card>
