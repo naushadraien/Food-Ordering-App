@@ -41,7 +41,7 @@ const Search = () => {
       <div className="mt-3 text-center">
         Search Results For: <span className="text-red-500">{query}</span>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-8 gap-4 mt-28">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mt-28">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product: ProductType) => (
             <div key={product.id} className="text-center mb-10">
