@@ -61,7 +61,7 @@ export const CheckoutForm = ({ Orderid }: { Orderid: String }) => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/${Orderid}`,
+        return_url: `https://food-ordering-app-umber.vercel.app/${Orderid}`,
       },
     });
 
