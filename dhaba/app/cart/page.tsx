@@ -18,7 +18,7 @@ const CartPage = () => {
 
   const handleCheckout = async () => {
     if (!session) {
-      return router.push("/");
+      return router.push("/login");
     } else {
       try {
         const res = await fetch("/api/orders", {
