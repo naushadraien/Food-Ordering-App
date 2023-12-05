@@ -1,6 +1,5 @@
 "use client";
 import { Loading } from "@/components/Loading";
-import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +37,7 @@ const Login = () => {
             Login into your account or create a new one using social buttons
             below
           </p>
-          <Button
+          <button
             className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md"
             onClick={() => signIn("google")}
           >
@@ -50,7 +49,7 @@ const Login = () => {
               className="object-contain"
             />
             <span>Sign in with Google</span>
-          </Button>
+          </button>
           {/* <button
             className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md"
             onClick={() => signIn("facebook")}
