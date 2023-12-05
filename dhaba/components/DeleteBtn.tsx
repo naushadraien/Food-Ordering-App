@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Button } from "./ui/button";
 import { Loading } from "./Loading";
+import { data } from "autoprefixer";
 
 const DeleteBtn = ({ id }: { id: string }) => {
   const { data: session, status } = useSession();
@@ -15,18 +16,22 @@ const DeleteBtn = ({ id }: { id: string }) => {
   if (status === "unauthenticated" || !session?.user.isAdmin) return;
 
   const handleDelete = async () => {
-    const res = await fetch(
-      `${process.env.Next_PUBLIC_URL}/api/products/${id}`,
-      {
-        method: "DELETE",
+    try {
+      const res = await fetch(
+        `https://food-ordering-app-umber.vercel.app/api/products/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await res.json();
+      if (res.status === 200) {
+        router.push("/menu");
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
       }
-    );
-    const data = await res.json();
-    if (res.status === 200) {
-      router.push("/menu");
-      toast.success(data.message);
-    } else {
-      toast.error(data.message);
+    } catch (error) {
+      console.log(error);
     }
   };
 

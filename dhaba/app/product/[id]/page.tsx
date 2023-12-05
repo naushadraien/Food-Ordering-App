@@ -4,15 +4,24 @@ import { ProductType } from "@/types/type";
 import Image from "next/image";
 
 const getData = async (id: string) => {
-  const res = await fetch(`${process.env.Next_PUBLIC_URL}/api/products/${id}`, {
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch(
+      `${
+        process.env.Next_PUBLIC_URL && process.env.Next_PUBLIC_URL
+      }/api/products/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
+    if (!res.ok) {
+      throw new Error("Something went wrong");
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
   }
-
-  return await res.json();
 };
 const SingleProduct = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -20,7 +29,7 @@ const SingleProduct = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-around text-red-500 md:flex-row md:gap-8 mb-10  md:items-center relative">
       {/* Image Container */}
-      {singleProduct.img && (
+      {singleProduct && singleProduct.img && (
         <div className="relative w-full h-1/2 md:h-[70%]">
           <Image
             src={singleProduct.img}
