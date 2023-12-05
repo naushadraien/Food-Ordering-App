@@ -51,7 +51,7 @@ const Login = () => {
             />
             <span>Sign in with Google</span>
           </Button>
-          <Button
+          {/* <button
             className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md"
             onClick={() => signIn("facebook")}
           >
@@ -63,8 +63,8 @@ const Login = () => {
               className="object-contain"
             />
             <span>Sign in with Facebook</span>
-          </Button>
-          <button>Sign in with facebook</button>
+          </button>
+          <button>Sign in with facebook</button> */}
           <p className="text-sm text-center text-red-500">
             Have a problem?
             <Link href="/" className="underline">
