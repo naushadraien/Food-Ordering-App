@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
         where: {
           userEmail: session.user.email as string,
         },
-      }); //if the user is the admin then show all the orders
+      }); //if the user is not the admin find the order of the user by email
       // console.log("orders" + orders);
       return new NextResponse(JSON.stringify(orders), { status: 200 });
     } catch (error) {

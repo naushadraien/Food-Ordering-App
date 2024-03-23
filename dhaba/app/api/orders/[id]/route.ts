@@ -30,3 +30,28 @@ export const PUT = async (
     );
   }
 };
+export const DELETE = async (
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) => {
+  const { id } = params;
+  try {
+    await prisma.order.delete({
+      where: {
+        id: id,
+      },
+    });
+    // console.log(body);
+
+    return new NextResponse(
+      JSON.stringify({ message: "Order has been deleted!" }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return new NextResponse(
+      JSON.stringify({ message: "Something Went Wrong!" }),
+      { status: 500 }
+    );
+  }
+};

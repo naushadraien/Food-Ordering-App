@@ -45,6 +45,20 @@ const Orders = () => {
       //where invalidateQueries is used to refetch the data
     },
   });
+  const deleteMutation = useMutation({
+    mutationFn: ({ id }: { id: string }) => {
+      return fetch(`/api/orders/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["orders"] }); //here querykey is the key of the query which we want to invalidate which is taken from useQuery
+      //where invalidateQueries is used to refetch the data
+    },
+  });
 
   const handleUpdate = (e: React.FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
@@ -56,6 +70,10 @@ const Orders = () => {
     mutation.mutate({ id, status }); //here we are passing the id and status to the mutation function which is defined above and then we are using the mutation function to mutate the data
     form.reset();
     toast.success("Order Status Updated Successfully");
+  };
+  const handleDelete = (id: string) => {
+    deleteMutation.mutate({ id }); //here we are passing the id and status to the mutation function which is defined above and then we are using the mutation function to mutate the data
+    toast.success("Order deleted Successfully!");
   };
 
   if (isLoading || status === "loading") return <Loading />;
@@ -123,6 +141,18 @@ const Orders = () => {
                         height={20}
                       />
                     </Button>
+                    <div
+                      className="bg-red-400 p-2 rounded-full"
+                      onClick={() => handleDelete(order.id)}
+                      role="button"
+                    >
+                      <Image
+                        src="/delete.png"
+                        alt="edit"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
                   </form>
                 </td>
               ) : (
