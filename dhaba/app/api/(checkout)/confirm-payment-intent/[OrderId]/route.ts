@@ -50,7 +50,7 @@ export async function POST(
       to: [orderedProduct?.userEmail || "rehankhan426344@gmail.com"], // Provide a default value for orderedProduct?.userEmail
       subject: "Order Confirmed",
       react: EmailTemplate({
-        ProductName: orderedProduct?.products[0].title,
+        ProductName: (orderedProduct?.products[0] as { title: string })?.title, // Add a type assertion to ensure the correct type
       }) as React.ReactElement,
     });
 
