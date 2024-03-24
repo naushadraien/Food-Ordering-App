@@ -1,6 +1,6 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const SuccessPage = ({ params }: { params: { orderId: string } }) => {
   const router = useRouter();
@@ -28,6 +28,19 @@ const SuccessPage = ({ params }: { params: { orderId: string } }) => {
 
     makeRequest();
   }, [orderId, router]);
+
+  useEffect(() => {
+    const sendMail = async () => {
+      await fetch(`/api/confirm-payment-intent/${orderId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    };
+    sendMail();
+    console.log("Triggered");
+  }, [orderId]);
 
   return (
     <>

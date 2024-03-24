@@ -1,5 +1,8 @@
+import { EmailTemplate } from "@/components/email-template";
 import prisma from "@/utils/prisma_connect_for_api";
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import * as React from "react";
+import { Resend } from "resend";
 
 export const PUT = async (
   req: NextRequest,
@@ -28,3 +31,35 @@ export const PUT = async (
     );
   }
 };
+
+export async function POST(
+  req: NextRequest,
+  { params }: { params: { OrderId: string } }
+) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const { OrderId } = params;
+  try {
+    const orderedProduct = await prisma.order.findFirst({
+      where: {
+        id: OrderId,
+      },
+    });
+    const { data, error } = await resend.emails.send({
+      from: "FeastFlix <onboarding@resend.dev>",
+      to: [orderedProduct?.userEmail], // Provide a default value for orderedProduct?.userEmail
+      subject: "Order Confirmed",
+      react: EmailTemplate({
+        ProductName: orderedProduct?.products[0].title,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      return Response.json({ error });
+    }
+
+    return Response.json({ data });
+  } catch (error) {
+    return Response.json({ error });
+  }
+}
