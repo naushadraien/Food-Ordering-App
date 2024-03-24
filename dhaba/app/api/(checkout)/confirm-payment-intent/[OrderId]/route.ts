@@ -47,7 +47,7 @@ export async function POST(
     });
     const { data, error } = await resend.emails.send({
       from: "FeastFlix <onboarding@resend.dev>",
-      to: [orderedProduct?.userEmail], // Provide a default value for orderedProduct?.userEmail
+      to: [orderedProduct?.userEmail || "rehankhan426344@gmail.com"], // Provide a default value for orderedProduct?.userEmail
       subject: "Order Confirmed",
       react: EmailTemplate({
         ProductName: orderedProduct?.products[0].title,
